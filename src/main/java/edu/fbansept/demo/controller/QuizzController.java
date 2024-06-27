@@ -23,48 +23,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/quizz")
 public class QuizzController {
-
-    @Autowired
-    QuestionDao questionDao;
-
-    @Autowired
-    ReponsePossibleDao reponsePossibleDao;
-
-    @Autowired
-    ReponseUtilisateurDao reponseUtilisateurDao;
-
     @Autowired
     QuizzDao quizzDao;
-
-    @IsAdmin
-    @PostMapping("/question/{questionId}/reponse")
-    public ResponseEntity<ReponsePossible> addReponsePossibleToQuestion(
-            @PathVariable Integer questionId,
-            @RequestBody ReponsePossible reponsePossible) {
-
-        Optional<Question> optionalQuestion = questionDao.findById(questionId);
-
-        if(optionalQuestion.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        reponsePossible.setQuestion(optionalQuestion.get());
-        reponsePossibleDao.save(reponsePossible);
-
-        return new ResponseEntity<>(reponsePossible, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/reponseutilisateur")
-    public ResponseEntity<ReponseUtilisateur> addReponseUtilisateur(
-            @RequestBody ReponseUtilisateur reponseUtilisateur,
-            @AuthenticationPrincipal AppUserDetails userDetails) {
-
-        reponseUtilisateur.setUtilisateur(userDetails.getUtilisateur());
-        reponseUtilisateurDao.save(reponseUtilisateur);
-
-        return new ResponseEntity<>(reponseUtilisateur, HttpStatus.CREATED);
-    }
-
 
     @GetMapping("/liste")
     public List<Quizz> liste() {

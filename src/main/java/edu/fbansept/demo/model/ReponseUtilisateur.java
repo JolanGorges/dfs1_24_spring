@@ -9,15 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = ReponseUtilisateur.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ReponseUtilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected Utilisateur utilisateur;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     protected ReponsePossible reponsePossible;
 }

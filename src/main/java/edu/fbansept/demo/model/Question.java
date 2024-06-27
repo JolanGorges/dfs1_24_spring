@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = Question.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Question {
 
     @Id

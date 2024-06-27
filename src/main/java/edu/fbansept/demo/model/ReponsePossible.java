@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = ReponsePossible.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ReponsePossible {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +17,9 @@ public class ReponsePossible {
 
     protected String texte;
 
-    protected boolean estJuste;
+    protected Boolean estJuste;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "question_id")
     protected Question question;
 }

@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @Setter
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = Categorie.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Categorie {
 
     @Id
