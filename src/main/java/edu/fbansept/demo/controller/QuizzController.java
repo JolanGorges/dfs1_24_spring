@@ -1,7 +1,11 @@
 package edu.fbansept.demo.controller;
 
+import edu.fbansept.demo.dao.QuestionDao;
 import edu.fbansept.demo.dao.QuizzDao;
+import edu.fbansept.demo.dao.ReponsePossibleDao;
+import edu.fbansept.demo.model.Question;
 import edu.fbansept.demo.model.Quizz;
+import edu.fbansept.demo.model.ReponsePossible;
 import edu.fbansept.demo.security.AppUserDetails;
 import edu.fbansept.demo.security.IsAdmin;
 import jakarta.validation.Valid;
@@ -19,7 +23,32 @@ import java.util.Optional;
 public class QuizzController {
 
     @Autowired
+    QuestionDao questionDao;
+
+    @Autowired
+    ReponsePossibleDao reponsePossibleDao;
+
+    @Autowired
     QuizzDao quizzDao;
+
+    @IsAdmin
+    @PostMapping("/question/{questionId}/reponse")
+    public ResponseEntity<ReponsePossible> addReponsePossibleToQuestion(
+            @PathVariable Integer questionId,
+            @RequestBody ReponsePossible reponsePossible) {
+
+        Optional<Question> optionalQuestion = questionDao.findById(questionId);
+
+        if(optionalQuestion.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        reponsePossible.setQuestion(optionalQuestion.get());
+        reponsePossibleDao.save(reponsePossible);
+
+        return new ResponseEntity<>(reponsePossible, HttpStatus.CREATED);
+    }
+
 
     @GetMapping("/liste")
     public List<Quizz> liste() {
