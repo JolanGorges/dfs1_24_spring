@@ -10,16 +10,14 @@ import lombok.Setter;
 @Setter
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ReponsePossible {
+public class ReponseUtilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    protected String texte;
-
-    protected boolean estJuste;
+    @ManyToOne
+    protected Utilisateur utilisateur;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
-    protected Question question;
+    protected ReponsePossible reponsePossible;
 }

@@ -3,9 +3,11 @@ package edu.fbansept.demo.controller;
 import edu.fbansept.demo.dao.QuestionDao;
 import edu.fbansept.demo.dao.QuizzDao;
 import edu.fbansept.demo.dao.ReponsePossibleDao;
+import edu.fbansept.demo.dao.ReponseUtilisateurDao;
 import edu.fbansept.demo.model.Question;
 import edu.fbansept.demo.model.Quizz;
 import edu.fbansept.demo.model.ReponsePossible;
+import edu.fbansept.demo.model.ReponseUtilisateur;
 import edu.fbansept.demo.security.AppUserDetails;
 import edu.fbansept.demo.security.IsAdmin;
 import jakarta.validation.Valid;
@@ -29,6 +31,9 @@ public class QuizzController {
     ReponsePossibleDao reponsePossibleDao;
 
     @Autowired
+    ReponseUtilisateurDao reponseUtilisateurDao;
+
+    @Autowired
     QuizzDao quizzDao;
 
     @IsAdmin
@@ -47,6 +52,17 @@ public class QuizzController {
         reponsePossibleDao.save(reponsePossible);
 
         return new ResponseEntity<>(reponsePossible, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/reponseutilisateur")
+    public ResponseEntity<ReponseUtilisateur> addReponseUtilisateur(
+            @RequestBody ReponseUtilisateur reponseUtilisateur,
+            @AuthenticationPrincipal AppUserDetails userDetails) {
+
+        reponseUtilisateur.setUtilisateur(userDetails.getUtilisateur());
+        reponseUtilisateurDao.save(reponseUtilisateur);
+
+        return new ResponseEntity<>(reponseUtilisateur, HttpStatus.CREATED);
     }
 
 

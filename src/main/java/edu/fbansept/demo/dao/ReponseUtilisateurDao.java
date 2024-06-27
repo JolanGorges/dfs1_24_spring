@@ -1,10 +1,10 @@
 package edu.fbansept.demo.dao;
 
-import edu.fbansept.demo.model.ReponsePossible;
+import edu.fbansept.demo.model.ReponseUtilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReponsePossibleDao extends JpaRepository<ReponsePossible, Integer> {
+public interface ReponseUtilisateurDao extends JpaRepository<ReponseUtilisateur, Integer> {
 
 }
